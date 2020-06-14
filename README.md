@@ -16,7 +16,7 @@ You can access a working prototype here: https://g6947566.github.io/study-timer-
 ### Wireframes
 Landing/Login Page
 :-------------------------:
-![Landing/Login Page](/github-images/wireframes/landing-page-wireframes.png)
+![mobilewireframe](https://user-images.githubusercontent.com/62404151/84582187-e8d2be80-adb6-11ea-98de-990f6a052f88.png)
 
 
 ## Screenshots
@@ -27,7 +27,7 @@ Landing/Login Page
 
 ## Functionality
 The app's functionality includes:
-* Every User has the ability to create their own timer base on their study habit. 
+* Every User has the ability to start interval timer base on their current study habit and suggest best days to study
 
 ## Technology
 * Front-End: HTML5, CSS3, JavaScript, jQuery
