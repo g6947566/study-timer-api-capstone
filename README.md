@@ -7,9 +7,12 @@ You can access a working prototype here: https://g6947566.github.io/study-timer-
 
 ## User Stories
 #### Landing Page
-* as a visitor
-* I want to understand what I can do with this app (or sign up, or log in)
-* so I can decide if I want to use it
+* As a User I want to manage my time and mood to study better
+* As a User I want to be recommended the best duration of time to study base on my past study habits
+* As a User I want to be recmmended the best days to study based on the weather condition
+* As a user I want a timer to manage my stress from Time
+* As a user I want to divde my time into manageable parts to reduce anxiety from deadline. 
+
 
 
 
