@@ -1,0 +1,6 @@
+RNcode
+
+*c*c8c79b7c3a9598be47c0b836bfd**
+
+format
+http://api.openweathermap.org/data/2.5/weather?zip=94040,us&appid=4c2c8c79b7c3a9598be47c0b836bfd42

@@ -9,9 +9,8 @@ You can access a working prototype here: https://g6947566.github.io/study-timer-
 #### Landing Page
 * As a User I want to manage my time and mood to study better
 * As a User I want to be recommended the best duration of time to study base on my past study habits
-* As a User I want to be recmmended the best days to study based on the weather condition
+* As a User I want to be recommended the best days to study based on the weather condition
 * As a user I want a timer to manage my stress from Time
-* As a user I want to divde my time into manageable parts to reduce anxiety from deadline. 
 
 
 
@@ -30,7 +29,7 @@ Landing/Login Page
 
 ## Functionality
 The app's functionality includes:
-* Every User has the ability to start interval timer base on their current study habit and suggest best days to study
+* Every User has the ability to start interval timer base on their current study habit and suggest if today is a good day to study
 
 ## Technology
 * Front-End: HTML5, CSS3, JavaScript, jQuery
