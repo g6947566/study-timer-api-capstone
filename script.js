@@ -1,6 +1,6 @@
 
 
-
+//----------------weather api --------------------------------//
 const appidCode ="4c2c8c79b7c3a9598be47c0b836bfd42";
 const metricUnit ="imperial";
 function getWeather(numInput) {
@@ -23,10 +23,6 @@ function displayWeatherResults(responseJson) {
 }
 
 
-// function fahrenheitFormula(tempInput){
-//   console.log("fahrenheit");
-//   return fahrenheitTemp = `(${tempInput} − 273.15) × 9/5 + 32`;
-// }
 
 function zipForm() {
   $('.zip-Info').submit(event => {
@@ -40,7 +36,7 @@ function zipForm() {
 
 
 
-//Quote Function---------------------------------------//
+//-----------------Quote Function---------------------------------------//
 function getQuotes() {
   fetch(`https://type.fit/api/quotes`)
     .then(response => response.json())
@@ -61,15 +57,21 @@ function displayQuoteResults(responseJson) {
   }
 }
 
-//pomodora Bad Study Habit
-let minutes =25;
+//---------------------pomodora Interval Timer------------------------//
+
+
+
+
+let minutes = 9;
 let seconds = 00;
 let click = new Audio("bell.mp3");
 let started= false //pause is off
 let pauseTimer_interval = false;
+
+
 function templates(){
-  $("#minutes").html(minutes);
-  $("#seconds").html(seconds);
+  $("#minutes").html(leadingZero(minutes));
+  $("#seconds").html(leadingZero(seconds));
 }
 
 
@@ -77,8 +79,7 @@ function handleClicks(){
   templates();
   $('#pomodoro-start').on('click', ()=>{ 
     if (started===false){
-      console.log("pomodoro-start clicker");
-    
+    console.log("pomodoro-start clicker");
     startClock();
     click.play();
     console.log('started is false and will turn to true');
@@ -111,8 +112,10 @@ function startClock(){
   started =true;
   // minutes =5;
   // seconds = 9;
-  $("#minutes").html(minutes);//print the minutes
-  $("#seconds").html(seconds);//print the seconds
+
+
+  $("#minutes").html(leadingZero(minutes));//print the minutes
+  $("#seconds").html(leadingZero(seconds));//print the seconds
 minutes_interval = setInterval(minutesTimer, 60000);
 seconds_interval = setInterval(secondsTimer, 1000);
   console.log('startClock()');
@@ -122,29 +125,26 @@ seconds_interval = setInterval(secondsTimer, 1000);
 
 
 function minutesTimer(){
-  minutes = minutes - 1; 
-  $("#minutes").html(minutes);
+    minutes = minutes - 1; 
+    $("#minutes").html(leadingZero(minutes));
+
   
 }
 function secondsTimer(){
   seconds = seconds - 1; 
-  $("#seconds").html(seconds);
+  $("#seconds").html(leadingZero(seconds));
   if (seconds<=0){
     minutes = minutes -1;
-  $("#minutes").html(minutes);//print the minutes
-  console.log('second reached 0');
-      
-    console.log('seconds reset');
+    $("#minutes").html(leadingZero(minutes));//print the minutes
     seconds=59;//when countdown is complete to 0 it will turn it back to 60
     
-    $("#seconds").html(seconds);
+    $("#seconds").html(leadingZero(seconds));
   }
   if (minutes <=0){
-    console.log('minute is 0');
     seconds=0;
-    $("#seconds").html(seconds);
+    $("#seconds").html(leadingZero(seconds));
     minutes=0;
-    $("#minutes").html(minutes);
+    $("#minutes").html(leadingZero(minutes));
     
     clearInterval(seconds_interval);
     clearInterval(minutes_interval);
@@ -189,17 +189,26 @@ function stopClock() {
   
   clearInterval(minutes_interval);
     clearInterval(seconds_interval);
-    minutes=25;
+    minutes=10;
     seconds=00;
-    $("#minutes").html(minutes);//print the minutes
-    $("#seconds").html(seconds);//print the seconds
+    $("#minutes").html(leadingZero(minutes));//print the minutes
+    $("#seconds").html(leadingZero(seconds));//print the seconds
     started=false;
     pauseTimer_interval=false;
     console.log("started=false");
 }
 
+function leadingZero(n){
+  if (n < 10 && n >= 0)
+      return '0' + n;
+  else
+      return n;
+};
 
-$(handleClicks());
-$(zipForm());
+
+
+//--------------------start----------------//
+$(handleClicks());//for interval timer
+$(zipForm());//for weather api
 
 // $(getQuotes());
