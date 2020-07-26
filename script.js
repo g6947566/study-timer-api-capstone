@@ -1,6 +1,11 @@
+
+
+
+const appidCode ="4c2c8c79b7c3a9598be47c0b836bfd42";
+const metricUnit ="imperial";
 function getWeather(numInput) {
   fetch(
-    `http://api.openweathermap.org/data/2.5/weather?zip=${numInput}&,=usa&appid=4c2c8c79b7c3a9598be47c0b836bfd42`
+    `http://api.openweathermap.org/data/2.5/weather?zip=${numInput}&,=usa&appid=${appidCode}&units=${metricUnit}`
   )
     .then(response => response.json())
     .then(responseJson => displayWeatherResults(responseJson))
@@ -8,13 +13,34 @@ function getWeather(numInput) {
 }
 
 function displayWeatherResults(responseJson) {
+  
   console.log(responseJson);
   $(".weatherResults").append(`
            <p>${responseJson.name}</p>
            <p>${responseJson.weather[0].description}</p>
+           <p>${responseJson.main.temp}<br>F</p>
            `);
 }
 
+
+// function fahrenheitFormula(tempInput){
+//   console.log("fahrenheit");
+//   return fahrenheitTemp = `(${tempInput} − 273.15) × 9/5 + 32`;
+// }
+
+function zipForm() {
+  $('.zip-Info').submit(event => {
+    event.preventDefault();
+    let userNumInput = $("#zip-num").val();
+    //This will put the userNumInput to getWeather
+    getWeather(userNumInput);
+  });
+}
+
+
+
+
+//Quote Function---------------------------------------//
 function getQuotes() {
   fetch(`https://type.fit/api/quotes`)
     .then(response => response.json())
@@ -36,7 +62,7 @@ function displayQuoteResults(responseJson) {
 }
 
 //pomodora Bad Study Habit
-let minutes =15;
+let minutes =25;
 let seconds = 00;
 let click = new Audio("bell.mp3");
 let started= false //pause is off
@@ -52,9 +78,9 @@ function handleClicks(){
   $('#pomodoro-start').on('click', ()=>{ 
     if (started===false){
       console.log("pomodoro-start clicker");
-    click.play();
+    
     startClock();
- 
+    click.play();
     console.log('started is false and will turn to true');
     }else{
       restartClock();
@@ -109,7 +135,7 @@ function secondsTimer(){
   console.log('second reached 0');
       
     console.log('seconds reset');
-    seconds=5;//when countdown is complete to 0 it will turn it back to 60
+    seconds=59;//when countdown is complete to 0 it will turn it back to 60
     
     $("#seconds").html(seconds);
   }
@@ -163,7 +189,7 @@ function stopClock() {
   
   clearInterval(minutes_interval);
     clearInterval(seconds_interval);
-    minutes=15;
+    minutes=25;
     seconds=00;
     $("#minutes").html(minutes);//print the minutes
     $("#seconds").html(seconds);//print the seconds
@@ -174,6 +200,6 @@ function stopClock() {
 
 
 $(handleClicks());
-// $(getWeather("07675"));
-//  $(pomodoro.init());
+$(zipForm());
+
 // $(getQuotes());
