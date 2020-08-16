@@ -1,6 +1,44 @@
+//------question container-----//
+
+
+function hideDiv(){
+  $("#weather-Info").hide();
+  $(" #pomodoro-Timer, #pomodoro-clock-action").hide();
+};
+
+$('#bad').on('click', function() { 
+  console.log("bad was clicked");
+  $(".question-box").hide(500);
+  $("#pomodoro-Timer, #pomodoro-clock-action").show();
+  $("#minutes").html(leadingZero(15));
+  return minutes = 15;
+});
+$('#good').on('click', function() { 
+  console.log("good was clicked");
+  $(".question-box").hide(500);
+  $("#pomodoro-Timer, #pomodoro-clock-action").show();
+  $("#minutes").html(leadingZero(25));
+ return minutes = 25;
+ 
+  
+});
+$('#excellent').on('click', function() { 
+  console.log("excellent was clicked");
+  $(".question-box").hide(500);
+  $("#pomodoro-Timer, #pomodoro-clock-action").show();
+  $("#minutes").html(leadingZero(40));
+  return minutes = 40;
+});
+
+
+
+
+
 
 
 //----------------weather api --------------------------------//
+//-----still need to fix 1) Show error message for user -----// 
+//-----------------------2) Load only 1 weather info -------//
 const appidCode ="4c2c8c79b7c3a9598be47c0b836bfd42";
 const metricUnit ="imperial";
 function getWeather(numInput) {
@@ -9,7 +47,8 @@ function getWeather(numInput) {
   )
     .then(response => response.json())
     .then(responseJson => displayWeatherResults(responseJson))
-    .catch(error => console.log(error));
+    .catch(error=>alert(error));
+
 }
 
 function displayWeatherResults(responseJson) {
@@ -62,7 +101,7 @@ function displayQuoteResults(responseJson) {
 
 
 
-let minutes = 9;
+let minutes="";
 let seconds = 00;
 let click = new Audio("bell.mp3");
 let started= false //pause is off
@@ -108,12 +147,10 @@ let minutes_interval;
 let seconds_interval;
 //start of the click after the click
 function startClock(){
-  console.log('stared is true');
+  console.log('started is true');
   started =true;
-  // minutes =5;
+  //  minutes = badMinutes;
   // seconds = 9;
-
-
   $("#minutes").html(leadingZero(minutes));//print the minutes
   $("#seconds").html(leadingZero(seconds));//print the seconds
 minutes_interval = setInterval(minutesTimer, 60000);
@@ -210,5 +247,6 @@ function leadingZero(n){
 //--------------------start----------------//
 $(handleClicks());//for interval timer
 $(zipForm());//for weather api
+$(hideDiv());
 
 // $(getQuotes());
