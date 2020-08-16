@@ -8,23 +8,51 @@
     <title>BetterMe</title>
 </head>
 <body>
+  <nav>
+      <h1>BetterMe</h1>
+  </nav>
 
-    <!---Pomodoro for Bad Study Habit-->
-    <div id="pomodoro-Timer">
-      <div id="minutes"></div>:
-      <div id="seconds"></div>
-    </div>
-      <div id="pomodoro-clock-action">
-        <button id="pomodoro-start">start</button>
-        <button id="pomodoro-pause">pause</button>
-        <button id="pomodoro-stop">stop</button>
-    </div>
-
-
-              <!---Weather and Quote Results-->
-    <section class="weatherResults"></section>
-    <section class="quoteResults"></section>
-
+  <div id="container" >
+    <div class="question-box"> 
+      <h3>Are you good at studying for a long time?</h3>
+    
+    <button type="submit" id="bad" value = 15>Bad</button>
+    <button type="submit" id="good" value =25>Good</button>
+    <button type="submit" id="excellent" value = 40>Excellent</button>
+     
+  </div>
+    
+     <!-----Weather info-->
+     <div id="weather-Info">
+        <form class="zip-Info">
+          <h3>Zip Code</h3>
+          <input type="number"  id="zip-num" class="zip-Form" placeholder="Enter zip code" required maxlength="6">
+          <input type="submit" id="get" class="btn btn-primary mr-4" value="Get Weather Info">
+      
+      </form>
+       </div>
+  
+   
+  
+  
+      <!---Pomodoro for Bad Study Habit-->
+      <div id="pomodoro-Timer">
+        <div id="minutes"></div>:
+        <div id="seconds"></div>
+      </div>
+        <div id="pomodoro-clock-action">
+          <button id="pomodoro-start">start</button>
+          <button id="pomodoro-pause">pause</button>
+          <button id="pomodoro-stop">stop</button>
+      </div>
+  
+  
+      <!---Weather and Quote Results-->
+      <section class="weatherResults"></section>
+      <section class="quoteResults"></section>
+  
+  </div>
+    
 
         <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
         <script src="script.js"></script>
