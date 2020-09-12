@@ -5,20 +5,28 @@ function hideDiv(){
   $("#weather-Info").hide();
   $(" #pomodoro-Timer, #pomodoro-clock-action").hide();
 };
-
+//--------------------------------------//
+var storeButton;
 $('#bad').on('click', function() { 
   console.log("bad was clicked");
   $(".question-box").hide(500);
   $("#pomodoro-Timer, #pomodoro-clock-action").show();
-  $("#minutes").html(leadingZero(15));
-  return minutes = 15;
+  $("#minutes").html(leadingZero(10));
+  storeButton = 10;
+   
+  return minutes = $("#bad").val();
+ 
+
 });
-$('#good').on('click', function() { 
+$('#good').on('click', function () { 
   console.log("good was clicked");
   $(".question-box").hide(500);
   $("#pomodoro-Timer, #pomodoro-clock-action").show();
-  $("#minutes").html(leadingZero(25));
- return minutes = 25;
+  $("#minutes").html(leadingZero(20));
+  storeButton = 25;
+  return minutes = $("#good").val();
+
+ 
  
   
 });
@@ -27,7 +35,9 @@ $('#excellent').on('click', function() {
   $(".question-box").hide(500);
   $("#pomodoro-Timer, #pomodoro-clock-action").show();
   $("#minutes").html(leadingZero(40));
-  return minutes = 40;
+  storeButton = 40;
+  return minutes = $("#excellent").val();
+
 });
 
 
@@ -100,9 +110,12 @@ function displayQuoteResults(responseJson) {
 
 
 
+// let minutes="";
 
-let minutes="";
+let stopButton = false;
 let seconds = 00;
+let minutes_interval;
+let seconds_interval;
 let click = new Audio("bell.mp3");
 let started= false //pause is off
 let pauseTimer_interval = false;
@@ -115,16 +128,16 @@ function templates(){
 
 
 function handleClicks(){
-  templates();
+  templates(); 
+
   $('#pomodoro-start').on('click', ()=>{ 
-    if (started===false){
-    console.log("pomodoro-start clicker");
-    startClock();
-    click.play();
-    console.log('started is false and will turn to true');
-    }else{
+    if (started===false && stopButton ===true){
       restartClock();
-      console.log('restartClock wacko');
+      console.log("restart");
+  
+    }else if (started ===false && stopButton === false){
+      startClock();
+    click.play();
     }
 })
 
@@ -139,26 +152,22 @@ $('#pomodoro-stop').on('click', function() {
     console.log("pomodoro-stop clicker");
     stopClock();
 })
-}
+};
 
 
 
-let minutes_interval;
-let seconds_interval;
+
 //start of the click after the click
 function startClock(){
-  console.log('started is true');
-  started =true;
-  //  minutes = badMinutes;
-  // seconds = 9;
-  $("#minutes").html(leadingZero(minutes));//print the minutes
-  $("#seconds").html(leadingZero(seconds));//print the seconds
+ 
+ console.log(minutesTimer);
+  
 minutes_interval = setInterval(minutesTimer, 60000);
 seconds_interval = setInterval(secondsTimer, 1000);
-  console.log('startClock()');
-  console.log(minutes_interval);
-  console.log(seconds_interval);  
- 
+$("#minutes").html(leadingZero(minutes));//print the minutes
+  $("#seconds").html(leadingZero(seconds));//print the seconds
+started =true;
+};
 
 
 function minutesTimer(){
@@ -188,7 +197,7 @@ function secondsTimer(){
     // breakTimer();//function for break timer
   }
  }
-}
+
 
 
 // function breakTimer(){
@@ -199,40 +208,42 @@ function secondsTimer(){
 // }
 
 function pauseTimer(){
-   
     clearInterval(minutes_interval);
     clearInterval(seconds_interval);
     console.log(minutes_interval);
     console.log(minutes);  
     console.log(seconds); 
+    started = false;
+    stopButton = false;
    
 }
 
+ 
+
+
 function restartClock(){
-  if(minutes===0){
-    minutes =5;
-  seconds = 9;
-    startClock();
-  }else if(pauseTimer_interval===true){
-    startClock();
-    console.log('restart pause');
-    pauseTimer_interval= false;
-  }else{
-    console.log(`doesn't Work`);
-  }
-}
+console.log(storeButton);
+
+};
+ 
+ 
+  
+  
+
+
 
 function stopClock() {
-  
   clearInterval(minutes_interval);
     clearInterval(seconds_interval);
-    minutes=10;
-    seconds=00;
-    $("#minutes").html(leadingZero(minutes));//print the minutes
-    $("#seconds").html(leadingZero(seconds));//print the seconds
-    started=false;
-    pauseTimer_interval=false;
-    console.log("started=false");
+    $("#minutes").html(leadingZero(00));
+    $("#seconds").html(leadingZero(00));
+  
+    started = false;
+    stopButton = true;
+    
+    
+    
+  
 }
 
 function leadingZero(n){
@@ -249,4 +260,3 @@ $(handleClicks());//for interval timer
 $(zipForm());//for weather api
 $(hideDiv());
 
-// $(getQuotes());
