@@ -6,39 +6,6 @@ function hideDiv(){
   $(" #pomodoro-Timer, #pomodoro-clock-action").hide();
 };
 //--------------------------------------//
-var storeButton;
-$('#bad').on('click', function() { 
-  console.log("bad was clicked");
-  $(".question-box").hide(500);
-  $("#pomodoro-Timer, #pomodoro-clock-action").show();
-  $("#minutes").html(leadingZero(10));
-  storeButton = 10;
-   
-  return minutes = $("#bad").val();
- 
-
-});
-$('#good').on('click', function () { 
-  console.log("good was clicked");
-  $(".question-box").hide(500);
-  $("#pomodoro-Timer, #pomodoro-clock-action").show();
-  $("#minutes").html(leadingZero(20));
-  storeButton = 25;
-  return minutes = $("#good").val();
-
- 
- 
-  
-});
-$('#excellent').on('click', function() { 
-  console.log("excellent was clicked");
-  $(".question-box").hide(500);
-  $("#pomodoro-Timer, #pomodoro-clock-action").show();
-  $("#minutes").html(leadingZero(40));
-  storeButton = 40;
-  return minutes = $("#excellent").val();
-
-});
 
 
 
@@ -107,18 +74,42 @@ function displayQuoteResults(responseJson) {
 }
 
 //---------------------pomodora Interval Timer------------------------//
-
-
-
-// let minutes="";
-
+let started= false //pause is off
 let stopButton = false;
 let seconds = 00;
 let minutes_interval;
 let seconds_interval;
 let click = new Audio("bell.mp3");
-let started= false //pause is off
-let pauseTimer_interval = false;
+let storeButton;
+$('#bad').on('click', function() { 
+  console.log("bad was clicked");
+  $(".question-box").hide(500);
+  $("#pomodoro-Timer, #pomodoro-clock-action").show();
+  $("#minutes").html(leadingZero(00));
+  storeButton = 10;
+  return minutes = $("#bad").val();
+});
+
+$('#good').on('click', function () { 
+  console.log("good was clicked");
+  $(".question-box").hide(500);
+  $("#pomodoro-Timer, #pomodoro-clock-action").show();
+  $("#minutes").html(leadingZero(20));
+  storeButton = 25;
+  return minutes = $("#good").val();
+ 
+});
+
+$('#excellent').on('click', function() { 
+  console.log("excellent was clicked");
+  $(".question-box").hide(500);
+  $("#pomodoro-Timer, #pomodoro-clock-action").show();
+  $("#minutes").html(leadingZero(40));
+  storeButton = 40;
+  return minutes = $("#excellent").val();
+
+});
+
 
 
 function templates(){
@@ -128,30 +119,23 @@ function templates(){
 
 
 function handleClicks(){
-  templates(); 
-
-  $('#pomodoro-start').on('click', ()=>{ 
+ templates(); 
+ $('#pomodoro-start').on('click', ()=>{ 
     if (started===false && stopButton ===true){
-      restartClock();
-      console.log("restart");
-  
+     restartClock();
+     console.log("restart");
     }else if (started ===false && stopButton === false){
-      startClock();
-    click.play();
+     startClock();
+     click.play();
     }
-})
+ })
+ $('#pomodoro-pause').on('click', function() { 
+  pauseTimer();
+ })
 
-$('#pomodoro-pause').on('click', function() { 
-    console.log("pomodoro-pause clicker");
-    pauseTimer_interval = true;
-    console.log(" pauseTimer_interval = true");
-    pauseTimer();
-  })
-
-$('#pomodoro-stop').on('click', function() { 
-    console.log("pomodoro-stop clicker");
-    stopClock();
-})
+ $('#pomodoro-stop').on('click', function() { 
+  stopClock();
+ })
 };
 
 
@@ -159,44 +143,44 @@ $('#pomodoro-stop').on('click', function() {
 
 //start of the click after the click
 function startClock(){
- 
- console.log(minutesTimer);
-  
-minutes_interval = setInterval(minutesTimer, 60000);
-seconds_interval = setInterval(secondsTimer, 1000);
-$("#minutes").html(leadingZero(minutes));//print the minutes
-  $("#seconds").html(leadingZero(seconds));//print the seconds
-started =true;
+ minutes_interval = setInterval(minutesTimer, 60000);
+ seconds_interval = setInterval(secondsTimer, 1000);
+ $("#minutes").html(leadingZero(minutes));//print the minutes
+ $("#seconds").html(leadingZero(seconds));//print the seconds
+ started =true;
+
 };
 
 
 function minutesTimer(){
+  if(minutes >=1){
     minutes = minutes - 1; 
     $("#minutes").html(leadingZero(minutes));
+   }else{
+    minutes =0;
+  }
+
 
   
 }
 function secondsTimer(){
   seconds = seconds - 1; 
   $("#seconds").html(leadingZero(seconds));
-  if (seconds<=0){
-    minutes = minutes -1;
-    $("#minutes").html(leadingZero(minutes));//print the minutes
-    seconds=59;//when countdown is complete to 0 it will turn it back to 60
+  if (minutes === 0 && seconds === 0 ){
     
-    $("#seconds").html(leadingZero(seconds));
-  }
-  if (minutes <=0){
-    seconds=0;
-    $("#seconds").html(leadingZero(seconds));
-    minutes=0;
-    $("#minutes").html(leadingZero(minutes));
-    
+
     clearInterval(seconds_interval);
     clearInterval(minutes_interval);
-    // breakTimer();//function for break timer
+   // breakTimer();//function for break timer
+   }else if (seconds <0){
+    minutesTimer();
+    $("#seconds").html(leadingZero(00));
+    $("#minutes").html(leadingZero(minutes));//print the minutes
+    seconds=59;//when countdown is complete to 0 it will turn it back to 60
+    $("#seconds").html(leadingZero(seconds));
   }
- }
+
+}
 
 
 
@@ -208,13 +192,10 @@ function secondsTimer(){
 // }
 
 function pauseTimer(){
-    clearInterval(minutes_interval);
-    clearInterval(seconds_interval);
-    console.log(minutes_interval);
-    console.log(minutes);  
-    console.log(seconds); 
-    started = false;
-    stopButton = false;
+  clearInterval(minutes_interval);
+  clearInterval(seconds_interval);
+  started = false;
+  stopButton = false;
    
 }
 
@@ -222,15 +203,15 @@ function pauseTimer(){
 
 
 function restartClock(){
-console.log(storeButton);
-minutes = storeButton;
-seconds = 00;
-templates();
-minutes_interval = setInterval(minutesTimer, 60000);
-seconds_interval = setInterval(secondsTimer, 1000);
-$("#minutes").html(leadingZero(minutes));//print the minutes
-  $("#seconds").html(leadingZero(seconds));//print the seconds
-started =true;
+ console.log(storeButton);
+ minutes = storeButton;
+ seconds = 00;
+ templates();
+ minutes_interval = setInterval(minutesTimer, 60000);
+ seconds_interval = setInterval(secondsTimer, 1000);
+ $("#minutes").html(leadingZero(minutes));//print the minutes
+ $("#seconds").html(leadingZero(seconds));//print the seconds
+ started =true;
 };
 
 
@@ -244,16 +225,11 @@ started =true;
 
 function stopClock() {
   clearInterval(minutes_interval);
-    clearInterval(seconds_interval);
-    $("#minutes").html(leadingZero(00));
-    $("#seconds").html(leadingZero(00));
-  
-    started = false;
-    stopButton = true;
-    
-    
-    
-  
+  clearInterval(seconds_interval);
+  $("#minutes").html(leadingZero(00));
+  $("#seconds").html(leadingZero(00));
+  started = false;
+  stopButton = true;
 }
 
 function leadingZero(n){
