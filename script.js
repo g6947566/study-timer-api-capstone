@@ -223,8 +223,18 @@ function pauseTimer(){
 
 function restartClock(){
 console.log(storeButton);
-
+minutes = storeButton;
+seconds = 00;
+templates();
+minutes_interval = setInterval(minutesTimer, 60000);
+seconds_interval = setInterval(secondsTimer, 1000);
+$("#minutes").html(leadingZero(minutes));//print the minutes
+  $("#seconds").html(leadingZero(seconds));//print the seconds
+started =true;
 };
+
+
+
  
  
   
